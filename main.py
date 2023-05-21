@@ -1,18 +1,16 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 app = FastAPI()
 
 class User(BaseModel):
     id: int
-    name: str
-    age: int
+    name: str = Field(max_length=20)
+    surname: str = Field(max_length=20)
+    age: int = Field(ge=1)
+    country: str = Field(max_length=20)
 
 users = []
-
-@app.get("/")
-def hello():
-    return "Hello world!"
 
 # Эндпоинт для получения всех пользователей
 @app.get("/users")
